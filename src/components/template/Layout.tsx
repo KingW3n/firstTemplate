@@ -1,3 +1,4 @@
+import useAppData from "@/data/hook/useAppData"
 import Conteudo from "./Conteudo"
 import MenuLateral from "./MenuLateral"
 import TopBar from "./Titulo"
@@ -8,8 +9,11 @@ interface LayoutProps{
     children?: any
 }
 export default function layout( props:LayoutProps){
+
+    const {tema} = useAppData()
+
     return(
-        <div className={`flex h-screen w-screeen`}>
+        <div className={` ${tema} flex h-screen w-screeen`}>
             <MenuLateral></MenuLateral>
             <div className={`
                 flex 
