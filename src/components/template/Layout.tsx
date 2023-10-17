@@ -1,7 +1,7 @@
 import useAppData from "@/data/hook/useAppData"
 import Conteudo from "./Conteudo"
 import MenuLateral from "./MenuLateral"
-import TopBar from "./Titulo"
+import TopBar from "./TopBar"
 
 interface LayoutProps{
     titulo:string
