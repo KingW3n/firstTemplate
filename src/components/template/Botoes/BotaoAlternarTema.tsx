@@ -6,7 +6,6 @@ interface BotaoAlterarTemaProps{
 }
 
 export default function BotaoAlterarTema(props: BotaoAlterarTemaProps){
-    console.log(props.tema)
     return props.tema === 'dark' ? (
         <div onClick={props.alternarTema} className={`
             hidden sm:flex items-center cursor-pointer
