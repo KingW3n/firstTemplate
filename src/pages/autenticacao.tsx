@@ -18,7 +18,7 @@ export default function Autenticacao(){
         }
     }
 
-    function exibirErro(msg, tempoEmSegundos = 5){
+    function exibirErro(msg:any, tempoEmSegundos = 5){
         setErro(msg)
         setTimeout(() =>setErro(null),tempoEmSegundos*1000)
     }
