@@ -2,6 +2,7 @@ import useAppData from "@/data/hook/useAppData"
 import Conteudo from "./Conteudo"
 import MenuLateral from "./MenuLateral"
 import TopBar from "./TopBar"
+import VerificarAuth from "../auth/VerificAlth"
 
 interface LayoutProps{
     titulo:string
@@ -13,7 +14,8 @@ export default function layout( props:LayoutProps){
     const {tema} = useAppData()
 
     return(
-        <div className={` ${tema} flex h-screen w-screeen`}>
+        <VerificarAuth> 
+            <div className={` ${tema} flex h-screen w-screeen`}>
             <MenuLateral></MenuLateral>
             <div className={`
                 flex 
@@ -28,5 +30,7 @@ export default function layout( props:LayoutProps){
                 </Conteudo>
             </div>
         </div>
+        </VerificarAuth>
+       
     )
 }

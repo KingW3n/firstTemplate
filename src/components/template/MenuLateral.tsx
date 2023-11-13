@@ -1,8 +1,12 @@
+import userAuth from "@/data/hook/userAuth";
 import { iconeAjustesOutline, iconeBellOutline, iconeCasautline, iconeSairOutline  } from "../icons";
 import Logo from "./Logo";
 import MenuItem from "./MenuItem";
 
 export default function MenuLateral(){
+
+    const{logout} = userAuth()
+
     return(
         <aside className={`
             flex  flex-col
@@ -36,7 +40,7 @@ export default function MenuLateral(){
                 <MenuItem 
                     texto="Sair"
                     icone={iconeSairOutline }
-                    onClick={() => console.log('Sair')}
+                    onClick={logout}
                     clasName={` 
                         text-red-600 dark:text-red-400
                         hover:bg-red-400 hover:text-white

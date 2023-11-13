@@ -1,8 +1,11 @@
 import AuthInput from "@/components/auth/AuthInput";
 import { iconeAtencaoOutiline, iconeGoogle } from "@/components/icons";
+import userAuth from "@/data/hook/userAuth";
 import { useState } from "react";
 
 export default function Autenticacao(){
+
+    const {usuario, loginGoogle} =  userAuth();
 
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
@@ -65,7 +68,7 @@ export default function Autenticacao(){
 
                 <hr className=" my-6 border-gray-300 w-full" />
 
-                <button onClick={submeter} className={`flex items-center justify-center  w-full bg-red-500 hover:bg-red-400 text-white rounded-lg px-4 py-3
+                <button onClick={loginGoogle} className={`flex items-center justify-center  w-full bg-red-500 hover:bg-red-400 text-white rounded-lg px-4 py-3
                 `}>
                     <div className=" mr-3 shadow-2xl">{iconeGoogle(6)}</div> Entrar com Google
                 </button>
