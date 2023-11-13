@@ -3,7 +3,7 @@ import loading from '../../../public/img/loadin.gif'
 import userAuth from "@/data/hook/userAuth"
 import router from 'next/router'
 
-export default function VerificarAuth(props){
+export default function VerificarAuth(props:any){
 
     const {usuario,carregando}=  userAuth()
 
