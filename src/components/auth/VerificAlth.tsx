@@ -1,9 +1,10 @@
+import Head from "next/head"
 import Image from "next/image"
 import loading from '../../../public/img/loadin.gif'
 import userAuth from "@/data/hook/userAuth"
 import router from 'next/router'
 
-export default function VerificarAuth(props:any){
+export default function VerificarAuth(props){
 
     const {usuario,carregando}=  userAuth()
 
@@ -11,6 +12,19 @@ export default function VerificarAuth(props:any){
 
         return(
             <>
+                <Head>
+                    <script dangerouslySetInnerHTML={
+                        {
+                            __html:`
+                                if(!document.cookie.includes("admin-template-firs-auth")){
+                                    window.location.href="/autenticacao"
+                                }
+                            `
+                        }
+                    }>
+                    
+                    </script>
+                </Head>
                 {props.children}
             </>
         )
@@ -19,7 +33,7 @@ export default function VerificarAuth(props:any){
     function renderizarCarregando(){
         return(
             <div className={`flex justify-center items-center h-screen`}>
-                <Image src={loading} alt={"imagem de loading"}/>
+                <Image src={loading}/>
             </div>
         )
     }

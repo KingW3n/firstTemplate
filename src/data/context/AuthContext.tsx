@@ -7,6 +7,8 @@ import Cookies from 'js-cookie';
 interface AuthCOntextProps{
     usuario?:Usuario
     carregando?:boolean
+    login?:(email:string, senha:string) => Promise<void>
+    cadastrar?:(email:string, senha:string) => Promise<void>
     loginGoogle?:() => Promise<void>
     logout?:() => Promise<void>
 }
@@ -37,12 +39,12 @@ function gerenciarCookie(logado: boolean){
     }
 } 
 
-export function AuthProvider(props){
+export function AuthProvider(props:any){
 
     const [usuario,setUsuario] = useState<Usuario>(null)
     const [carregando,setCarregando] = useState(true)
     
-    async function configurarSessao(usuarioFirebase){
+    async function configurarSessao(usuarioFirebase:any){
         if(usuarioFirebase?.email){
             const usuario = await usuarioNormalizado(usuarioFirebase)
             setUsuario (usuario)
@@ -64,15 +66,47 @@ export function AuthProvider(props){
             const resp = await firebase.auth(). signInWithPopup(
                 new firebase.auth.GoogleAuthProvider()
             )
-            configurarSessao(resp.user)
+
+            await configurarSessao(resp.user)
             route.push('/')   
        }finally{
             setCarregando(false )
        }
     }
 
+    async function login(email:string,senha:string) {
+        try{
+             setCarregando(true)
+
+             const resp = await firebase.auth().signInWithEmailAndPassword(
+                email,
+                senha
+            )
+             
+             await configurarSessao(resp.user)
+             route.push('/')   
+        }finally{
+             setCarregando(false )
+        }
+     }
+
+     async function cadastrar(email:string,senha:string) {
+        try{
+             setCarregando(true)
+            
+             const resp = await firebase.auth().createUserWithEmailAndPassword(
+                email,
+                senha
+            )
+
+             await configurarSessao(resp.user)
+             route.push('/')   
+        }finally{
+             setCarregando(false )
+        }
+     }
+
     async function logout (){
-        console.log('oi')
         try{
             setCarregando(true)
             await firebase.auth().signOut()
@@ -93,7 +127,12 @@ export function AuthProvider(props){
 
     return (
         <AuthContext.Provider value={{
-            usuario, carregando,loginGoogle, logout
+            usuario, 
+            carregando,
+            login,
+            cadastrar,
+            loginGoogle, 
+            logout
         }}>
             {props.children}
         </AuthContext.Provider>

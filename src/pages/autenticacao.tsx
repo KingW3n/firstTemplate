@@ -5,20 +5,25 @@ import { useState } from "react";
 
 export default function Autenticacao(){
 
-    const {usuario, loginGoogle} =  userAuth();
+    const {usuario,login,cadastrar, loginGoogle} =  userAuth();
 
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [erro, setErro] = useState(null);
     const [modo, setModo] = useState<'login'| 'cadastro'>('login');
 
-    function submeter(){
-        if (modo === 'login'){
-            console.log('login')
-            exibirErro('Ocorreu um erro no login')
-        }else{
-            exibirErro('Ocorreu um erro no Cadastro')
+    async function submeter(){
+        try{
+            if (modo === 'login'){
+                await login(email,senha)
+            }else{
+                await cadastrar(email,senha)
+                
+            }
+        }catch(e){
+            exibirErro(e?.message ?? 'Ocorreu um erro Inesperado')
         }
+        
     }
 
     function exibirErro(msg:any, tempoEmSegundos = 5){

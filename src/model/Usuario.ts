@@ -6,4 +6,3 @@ export default interface Usuario{
     proverdor:string
     imageUrl:string 
 }
-
